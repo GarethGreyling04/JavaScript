@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Tracking Example</title>
+  <style>
+    /* Add some basic styling for demonstration purposes */
+    .box {
+      border: 1px solid #000;
+      padding: 10px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="mainContainer">
+  <div class="box" id="box1">Box 1</div>
+  <div class="box" id="box2">Box 2</div>
+  <div class="box" id="box3">Box 3</div>
+  <div class="box" id="box4">Box 4</div>
+</div>
+
+<script>
+  // Step 3: Set up an array for tracking clicks
+  const clickTrackingArray = [];
+
+  // Step 4: Select the main container element
+  const mainContainer = document.getElementById('mainContainer');
+
+  // Step 5: Add an event listener to capture clicks
+  mainContainer.addEventListener('click', handleElementClick);
+
+  // Step 6-10: Create a function to handle clicks
+  function handleElementClick(event) {
+    // Step 6: Get the target element from the event object
+    const targetElement = event.target;
+
+    // Step 7: Check if the element has an ID
+    if (targetElement.id !== 'mainContainer') {
+      // Step 8: Set up an object to track values
+      const trackingObject = {
+        textContent: targetElement.textContent,
+        id: targetElement.id,
+        tagName: targetElement.tagName,
+        className: targetElement.className,
+      };
+
+      // Step 9: Add the temporary object to the tracking array
+      clickTrackingArray.push(trackingObject);
+
+      // Step 10: Output the values to the console
+      console.log(clickTrackingArray);
+    }
+  }
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Rater</title>
+  <style>
+    .stars ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .star {
+      font-size: 2em;
+      color: #ddd;
+      display: inline-block;
+    }
+
+    .orange {
+      color: orange;
+    }
+
+    .output {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <ul class="stars">
+    <li class="star">&#10029;</li>
+    <li class="star">&#10029;</li>
+    <li class="star">&#10029;</li>
+    <li class="star">&#10029;</li>
+    <li class="star">&#10029;</li>
+  </ul>
+  <div class="output"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Step 1: Select stars and output elements
+      const starsContainer = document.querySelector('.stars');
+      const outputElement = document.querySelector('.output');
+
+      // Step 2: Create object for stars
+      const starElements = document.querySelectorAll('.star');
+
+      // Step 3: Loop through star elements and add event listeners
+      starElements.forEach((star, index) => {
+        star.starValue = index + 1;
+        star.addEventListener('click', starRate);
+      });
+
+      // Step 4: Define the starRate function
+      function starRate(event) {
+        const starValue = event.target.starValue;
+        outputElement.textContent = `You rated this ${starValue} star(s).`;
+
+        // Step 5: Loop through stars to apply orange class based on rating
+        starElements.forEach((star, index) => {
+          if (index < starValue) {
+            star.classList.add('orange');
+          } else {
+            star.classList.remove('orange');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Position Tracker</title>
+  <style>
+    .container {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+
+    .active {
+      background-color: red;
+    }
+
+    .output {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContainer">
+    <!-- Your content goes here -->
+  </div>
+  <div class="output" id="outputElement"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Step 2: Select the main container element
+      const mainContainer = document.getElementById('mainContainer');
+
+      // Step 3: Add event listeners for mouseover, mouseout, and mousemove
+      mainContainer.addEventListener('mouseover', handleMouseOver);
+      mainContainer.addEventListener('mouseout', handleMouseOut);
+      mainContainer.addEventListener('mousemove', handleMouseMove);
+
+      // Step 3: Define functions for mouseover and mouseout
+      function handleMouseOver() {
+        mainContainer.classList.add('active');
+      }
+
+      function handleMouseOut() {
+        mainContainer.classList.remove('active');
+      }
+
+      // Step 4: Define function for mousemove
+      function handleMouseMove(event) {
+        const xPosition = event.clientX;
+        const yPosition = event.clientY;
+        const outputElement = document.getElementById('outputElement');
+        
+        // Display mouse position in the output element
+        outputElement.textContent = `Mouse Position: X - ${xPosition}px, Y - ${yPosition}px`;
+      }
+    });
+  </script>
+</body>
+</html>

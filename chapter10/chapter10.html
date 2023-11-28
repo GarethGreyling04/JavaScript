@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Content Example</title>
+  <style>
+    /* Add some basic styling for demonstration purposes */
+    .active {
+      display: block !important; /* Use !important to override other styles if needed */
+    }
+
+    .myText {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="title">Title 1</div>
+<div class="myText">Text 1</div>
+
+<div class="title">Title 2</div>
+<div class="myText">Text 2</div>
+
+<div class="title">Title 3</div>
+<div class="myText">Text 3</div>
+
+<script>
+  // Step 1: Select all elements with a class of title
+  const titleElements = document.querySelectorAll('.title');
+
+  // Step 2: Select all elements with a class of myText
+  const myTextElements = document.querySelectorAll('.myText');
+
+  // Step 3 and 4: Add event listeners to toggle the 'active' class
+  titleElements.forEach((title, index) => {
+    title.addEventListener('click', () => {
+      // Toggle the 'active' class on the next element sibling
+      myTextElements[index].classList.toggle('active');
+
+      // Step 5: Remove the 'active' class from all myText elements
+      myTextElements.forEach((myText, i) => {
+        if (i !== index) {
+          myText.classList.remove('active');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

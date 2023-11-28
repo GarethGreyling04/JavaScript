@@ -1,0 +1,292 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Animation</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Step 1: Create a canvas element and get the 2d context
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Step 2: Set canvas attributes and append it to the body
+    canvas.width = 500;
+    canvas.height = 400;
+    document.body.prepend(canvas);
+
+    // Step 3: Create an array named colVal
+    const colVal = [];
+    for (let i = 0; i < canvas.width / 10; i++) {
+      colVal.push(0);
+    }
+
+    // Step 4: Create the main Matrix function
+    function matrix() {
+      // Step 5: Set fillStyle and font color
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff00';
+
+      // Step 7: Iterate through colVal array
+      colVal.map((posY, index) => {
+        // Step 8: Generate random 0 or 1 for the text output
+        const char = Math.random() > 0.5 ? '0' : '1';
+
+        // Step 9: Set x position
+        const posX = index * 10;
+
+        // Step 10: Draw the character within the canvas
+        ctx.fillText(char, posX, posY);
+
+        // Step 11: Check if posY is greater than 100 plus a random value
+        if (posY > 100 + Math.random() * 300) {
+          colVal[index] = 0;
+        } else {
+          // Step 12: Increment posY by 10 for the next iteration
+          colVal[index] += 10;
+        }
+      });
+    }
+
+    // Step 4: Run the matrix function at 50 millisecond intervals
+    setInterval(matrix, 50);
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript</title>
+  <style>
+    .clock {
+      background-color: blue;
+      width: 400px;
+      text-align: center;
+      color: white;
+      font-size: 1em;
+    }
+
+    .clock>span {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: black;
+    }
+
+    .clock>span>span {
+      padding: 5px;
+      border-radius: 10px;
+      background-color: red;
+    }
+
+    input {
+      padding: 15px;
+      margin: 20px;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <input type="date" name="endDate">
+    <div class="clock">
+      <span><span class="days">0</span> Days</span>
+      <span><span class="hours">0</span> Hours</span>
+      <span><span class="minutes">0</span> Minutes</span>
+      <span><span class="seconds">0</span> Seconds</span>
+    </div>
+  </div>
+
+  <script>
+    // Step 1: Select page elements
+    const endDateInput = document.querySelector('input[name="endDate"]');
+    const clockContainer = document.querySelector('.clock');
+
+    // Step 2: Create variables
+    let timeInterval;
+    let isClockRunning = false;
+
+    // Step 3: Check local storage for countdown value
+    const savedEndDate = localStorage.getItem('endDate');
+
+    // Step 4: Start the clock
+    if (savedEndDate) {
+      endDateInput.value = savedEndDate;
+      startClock(savedEndDate);
+    }
+
+    // Step 5: Add event listener for input change
+    endDateInput.addEventListener('change', function () {
+      clearInterval(timeInterval);
+      localStorage.setItem('endDate', endDateInput.value);
+      startClock(endDateInput.value);
+    });
+
+    // Step 6: Start the clock function
+    function startClock(endDate) {
+      isClockRunning = true;
+      updateClock();
+
+      // Step 7: Update the clock every 1000 milliseconds
+      timeInterval = setInterval(updateClock, 1000);
+    }
+
+    // Step 8: Function to handle when the timer ends
+    function handleTimerEnd() {
+      clearInterval(timeInterval);
+      isClockRunning = false;
+    }
+
+    // Step 9: Function to update the clock values on the page
+    function updateClock() {
+      const timeLeft = getTimeLeft(endDateInput.value);
+
+      // Check if the timer has ended
+      if (!isClockRunning && timeLeft.total <= 0) {
+        handleTimerEnd();
+        return;
+      }
+
+      // Update the clock values on the page
+      Object.keys(timeLeft).forEach((unit) => {
+        const element = clockContainer.querySelector(`.${unit}`);
+        if (element) {
+          element.innerText = timeLeft[unit];
+        }
+      });
+    }
+
+    // Step 10: Function to calculate time left
+    function getTimeLeft(endDate) {
+      const now = new Date();
+      const endDateTime = Date.parse(endDate);
+      const totalMilliseconds = endDateTime - now;
+      const totalSeconds = Math.floor(totalMilliseconds / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      const days = Math.floor(totalHours / 24);
+
+      const seconds = totalSeconds % 60;
+      const minutes = totalMinutes % 60;
+      const hours = totalHours % 24;
+
+      return {
+        total: totalMilliseconds,
+        days,
+        hours,
+        minutes,
+        seconds
+      };
+    }
+
+    // Step 11: Check if the timer has ended
+    if (!isClockRunning && getTimeLeft(endDateInput.value).total <= 0) {
+      handleTimerEnd();
+    }
+  </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas HTML5</title>
+  <style>
+    #canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="400"></canvas>
+  <div>
+    <button class="save">Save</button>
+    <button class="clear">Clear</button>
+    <span>Color: <input type="color" value="#ffff00" id="penColor"></span>
+    <span>Width: <input type="range" min="1" max="20" value="10" id="penWidth"></span>
+  </div>
+  <div class="output"></div>
+
+  <script>
+    // Step 1: Select page elements
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const penColorInput = document.getElementById('penColor');
+    const penWidthInput = document.getElementById('penWidth');
+    const saveButton = document.querySelector('.save');
+    const clearButton = document.querySelector('.clear');
+    const outputDiv = document.querySelector('.output');
+
+    // Step 2: Set a variable to track pen location
+    let draw = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    // Step 3: Add event listener for mouse movement
+    canvas.addEventListener('mousemove', drawLine);
+    canvas.addEventListener('mousedown', (e) => {
+      draw = true;
+      [lastX, lastY] = [e.clientX, e.clientY];
+    });
+    canvas.addEventListener('mouseup', () => draw = false);
+    canvas.addEventListener('mouseout', () => draw = false);
+
+    // Step 4: Define drawLine function
+    function drawLine(e) {
+      if (!draw) return;
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(e.clientX, e.clientY);
+      ctx.strokeStyle = penColorInput.value;
+      ctx.lineWidth = penWidthInput.value;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      [lastX, lastY] = [e.clientX, e.clientY];
+    }
+
+    // Step 5: Add event listener for clear button
+    clearButton.addEventListener('click', () => {
+      const confirmClear = confirm('Are you sure you want to clear the drawing?');
+      if (confirmClear) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    });
+
+    // Step 6: Add event listener for save button
+    saveButton.addEventListener('click', () => {
+      const dataURL = canvas.toDataURL();
+      console.log(dataURL);
+
+      // Step 8: Create img element and prepend to output area
+      const img = document.createElement('img');
+      img.src = dataURL;
+      outputDiv.prepend(img);
+
+      // Step 9: Create anchor tag for download
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = `drawing_${Math.random()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+</body>
+</html>

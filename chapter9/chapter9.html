@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Manipulation Example</title>
+  <style>
+    /* Add some basic styling for demonstration purposes */
+    .output {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="output">
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+  <div>Div 1</div>
+  <div>Div 2</div>
+  <div>Div 3</div>
+</div>
+
+<script>
+  // Step 1: Select the element with the class output
+  const outputElement = document.querySelector('.output');
+
+  // Step 2: Create another object and update the ID of the ul tag
+  const mainList = outputElement.querySelector('ul');
+  mainList.id = 'mainList';
+
+  // Step 3: Output the tagName of each div into the console
+  const divElements = outputElement.getElementsByTagName('div');
+  const divTagNames = Array.from(divElements).map((div) => div.tagName);
+  console.log(divTagNames);
+
+  // Step 4: Set the ID of each div tag and alternate the color of the contents
+  for (let i = 0; i < divElements.length; i++) {
+    const div = divElements[i];
+    div.id = `id${i + 1}`;
+
+    // Alternate the color of the contents
+    if (i % 2 === 0) {
+      div.style.color = 'red';
+    } else {
+      div.style.color = 'blue';
+    }
+  }
+</script>
+
+</body>
+</html>
